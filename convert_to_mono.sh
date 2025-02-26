@@ -22,8 +22,18 @@ for folder in "$SAMPLES_DIR"/*/; do
     for file in "$folder"*.wav; do
         if [[ -f "$file" ]]; then
             filename=$(basename "$file")
-            sox "$file" -c 1 "${mono_folder}/${filename}"
-            echo "Converted $file to mono and saved to ${mono_folder}/${filename}"
+            # Extract the number from the beginning of the filename (if it exists)
+            if [[ "$filename" =~ ^[0-9]+ ]]; then
+                number="${BASH_REMATCH[0]}"
+                new_filename="${folder_name}_${number}.wav"
+            else
+                # If the filename does not start with a number, keep the original name
+                new_filename="$filename"
+            fi
+
+            # Convert the file to mono and save it with the new filename
+            sox "$file" -c 1 "${mono_folder}/${new_filename}"
+            echo "Converted $file to mono and saved to ${mono_folder}/${new_filename}"
         fi
     done
 done
