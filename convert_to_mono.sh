@@ -31,9 +31,13 @@ for folder in "$SAMPLES_DIR"/*/; do
                 new_filename="$filename"
             fi
 
-            # Convert the file to mono and save it with the new filename
-            sox "$file" -c 1 "${mono_folder}/${new_filename}"
-            echo "Converted $file to mono and saved to ${mono_folder}/${new_filename}"
+            # # Convert the file to mono and save it with the new filename
+            # sox "$file" -c 1 "${mono_folder}/${new_filename}"
+            # echo "Converted $file to mono and saved to ${mono_folder}/${new_filename}"
+            
+            # Convert the file to 16-bit, 48kHz mono and save it with the new filename
+            sox "$file" -b 16 -r 48000 -c 1 "${mono_folder}/${new_filename}"
+            echo "Converted $file to 16-bit, 48kHz mono and saved to ${mono_folder}/${new_filename}"
         fi
     done
 done
