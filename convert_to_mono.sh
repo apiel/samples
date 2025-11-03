@@ -14,6 +14,11 @@ for folder in "$SAMPLES_DIR"/*/; do
         continue
     fi
 
+    if [[ "$folder_name" == "all" ]]; then
+        echo "Skipping $folder_name (already processed)"
+        continue
+    fi
+
     # Create the corresponding _mono folder
     mono_folder="${SAMPLES_DIR}/${folder_name}_mono"
     mkdir -p "$mono_folder"
